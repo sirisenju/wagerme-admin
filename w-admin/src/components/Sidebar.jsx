@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutGrid, Wallet, ArrowRightLeft, History, Shield } from 'lucide-react';
+import { LayoutGrid, Wallet, ArrowRightLeft, History, Shield, LogOut } from 'lucide-react';
 
-const Sidebar = () => {
+const Sidebar = ({ onLogout }) => {
     const menuItems = [
         { path: '/', name: 'Dashboard', icon: LayoutGrid },
         { path: '/withdrawal-request', name: 'Withdrawal request', icon: Wallet },
@@ -33,7 +33,17 @@ const Sidebar = () => {
                     </NavLink>
                 ))}
             </nav>
-        </div>
+
+            <div className="mt-auto px-4">
+                <button
+                    onClick={onLogout}
+                    className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-red-500 hover:bg-red-50 transition-colors"
+                >
+                    <LogOut size={20} />
+                    <span className="font-medium text-sm">Logout</span>
+                </button>
+            </div>
+        </div >
     );
 };
 
