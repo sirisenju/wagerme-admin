@@ -2,6 +2,26 @@ import React from 'react';
 import { Search, Bell } from 'lucide-react';
 
 const Header = () => {
+    const [user, setUser] = React.useState(null);
+
+    React.useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            try {
+                setUser(JSON.parse(storedUser));
+            } catch (e) {
+                console.error("Error parsing user data", e);
+            }
+        }
+    }, []);
+
+    const getInitials = () => {
+        if (!user) return 'MA'; // Default
+        const first = user.firstName ? user.firstName.charAt(0) : '';
+        const last = user.lastName ? user.lastName.charAt(0) : '';
+        return (first + last).toUpperCase() || 'U';
+    };
+
     return (
         <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 fixed top-0 left-0 right-0 z-10">
             <div className="flex items-center gap-2">
@@ -26,8 +46,8 @@ const Header = () => {
                     <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
                 </button>
 
-                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium text-sm">
-                    MA
+                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium text-sm" title={user ? `${user.firstName} ${user.lastName}` : 'Admin'}>
+                    {getInitials()}
                 </div>
             </div>
         </header>

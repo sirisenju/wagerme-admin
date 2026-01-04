@@ -18,11 +18,19 @@ const Login = ({ onLogin }) => {
 
         try {
             const response = await api.post('/auth', { email, password });
-            const token = response.data.token || response.data.data?.token || response.data.accessToken;
+
+            // Extract token from the nested structure based on user provided JSON
+            const token = response.data.accessToken?.access_token;
+            const userData = response.data.data;
 
             if (token) {
                 localStorage.setItem('authToken', token);
-                console.log(localStorage.getItem('authToken').toString());
+                // Store user data for dashboard population
+                if (userData) {
+                    localStorage.setItem('user', JSON.stringify(userData));
+                    // console.log("User data stored:", userData);
+                }
+
                 onLogin();
                 navigate('/');
             } else {
