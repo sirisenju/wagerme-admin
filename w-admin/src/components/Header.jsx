@@ -1,7 +1,7 @@
 import React from 'react';
-import { Search, Bell } from 'lucide-react';
+import { Search, Bell, Menu } from 'lucide-react';
 
-const Header = () => {
+const Header = ({ onToggleMenu }) => {
     const [user, setUser] = React.useState(null);
 
     React.useEffect(() => {
@@ -23,16 +23,22 @@ const Header = () => {
     };
 
     return (
-        <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 fixed top-0 left-0 right-0 z-10">
-            <div className="flex items-center gap-2">
+        <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-4 md:px-8 fixed top-0 left-0 right-0 z-20">
+            <div className="flex items-center gap-4 text-blue-600">
+                <button
+                    onClick={onToggleMenu}
+                    className="p-2 -ml-2 rounded-lg hover:bg-gray-50 md:hidden"
+                >
+                    <Menu size={24} />
+                </button>
                 {/* Logo placeholder - using text as per screenshot style */}
-                <div className="text-2xl font-bold text-blue-600 flex items-center gap-1">
-                    <span>✨</span> Nextmove
+                <div className="text-2xl font-bold flex items-center gap-1">
+                    <span>✨</span> Wagerme
                 </div>
             </div>
 
-            <div className="flex items-center gap-6">
-                <div className="relative w-96">
+            <div className="flex items-center gap-4 md:gap-6">
+                <div className="relative w-full max-w-sm hidden md:block w-96">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input
                         type="text"

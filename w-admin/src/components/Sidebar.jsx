@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutGrid, Wallet, ArrowRightLeft, History, Shield, LogOut } from 'lucide-react';
 
-const Sidebar = ({ onLogout }) => {
+const Sidebar = ({ isOpen, onClose, onLogout }) => {
     const menuItems = [
         { path: '/', name: 'Dashboard', icon: LayoutGrid },
         { path: '/withdrawal-request', name: 'Withdrawal request', icon: Wallet },
@@ -12,38 +12,47 @@ const Sidebar = ({ onLogout }) => {
     ];
 
     return (
-        <div className="w-64 h-screen bg-white flex flex-col border-r border-gray-100 fixed left-0 top-0 pt-24 pb-4 px-4">
-            <div className="mb-8 px-4">
-                <h2 className="text-gray-500 text-sm font-medium">Menu</h2>
-            </div>
-            <nav className="flex flex-col gap-2">
-                {menuItems.map((item) => (
-                    <NavLink
-                        key={item.path}
-                        to={item.path}
-                        className={({ isActive }) =>
-                            `flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${isActive
-                                ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
-                                : 'text-gray-500 hover:bg-gray-50'
-                            }`
-                        }
-                    >
-                        <item.icon size={20} />
-                        <span className="font-medium text-sm">{item.name}</span>
-                    </NavLink>
-                ))}
-            </nav>
+        <>
+            {/* Mobile Overlay */}
+            {isOpen && (
+                <div
+                    className="fixed inset-0 bg-black/50 z-20 md:hidden"
+                    onClick={onClose}
+                />
+            )}
+            <div className={`w-64 h-screen bg-white flex flex-col border-r border-gray-100 fixed left-0 top-0 pt-24 pb-4 px-4 z-30 transition-transform duration-300 md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className="mb-8 px-4">
+                    <h2 className="text-gray-500 text-sm font-medium">Menu</h2>
+                </div>
+                <nav className="flex flex-col gap-2">
+                    {menuItems.map((item) => (
+                        <NavLink
+                            key={item.path}
+                            to={item.path}
+                            className={({ isActive }) =>
+                                `flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${isActive
+                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
+                                    : 'text-gray-500 hover:bg-gray-50'
+                                }`
+                            }
+                        >
+                            <item.icon size={20} />
+                            <span className="font-medium text-sm">{item.name}</span>
+                        </NavLink>
+                    ))}
+                </nav>
 
-            <div className="mt-auto px-4">
-                <button
-                    onClick={onLogout}
-                    className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-red-500 hover:bg-red-50 transition-colors"
-                >
-                    <LogOut size={20} />
-                    <span className="font-medium text-sm">Logout</span>
-                </button>
-            </div>
-        </div >
+                <div className="mt-auto px-4">
+                    <button
+                        onClick={onLogout}
+                        className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-red-500 hover:bg-red-50 transition-colors"
+                    >
+                        <LogOut size={20} />
+                        <span className="font-medium text-sm">Logout</span>
+                    </button>
+                </div>
+            </div >
+        </>
     );
 };
 

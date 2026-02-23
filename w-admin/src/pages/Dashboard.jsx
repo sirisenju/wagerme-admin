@@ -17,7 +17,7 @@ const Dashboard = () => {
         <div className="space-y-8">
             <div>
                 <h1 className="text-2xl font-bold text-gray-900 mb-6">Admin overview</h1>
-                <div className="grid grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     <StatsCard
                         title="Withdrawal Request"
                         value="32"
@@ -56,7 +56,7 @@ const Dashboard = () => {
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <h2 className="text-lg font-bold text-gray-900 mb-6">Withdrawal request</h2>
                 <div className="overflow-x-auto">
-                    <table className="w-full">
+                    <table className="w-full whitespace-nowrap">
                         <thead>
                             <tr className="bg-gray-50 text-left">
                                 <th className="py-4 px-4 text-sm font-medium text-gray-500 rounded-l-lg">Name</th>

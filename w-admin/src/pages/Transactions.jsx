@@ -20,7 +20,7 @@ const Transactions = () => {
 
     return (
         <div className="space-y-8">
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 {stats.map((stat, index) => (
                     <div key={index} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-40 flex flex-col justify-between">
                         <div className="flex justify-between items-start">
@@ -47,7 +47,7 @@ const Transactions = () => {
                     </button>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="w-full">
+                    <table className="w-full whitespace-nowrap">
                         <thead>
                             <tr className="bg-gray-50 text-left">
                                 <th className="py-4 px-4 text-sm font-medium text-gray-500 rounded-l-lg">Name</th>
